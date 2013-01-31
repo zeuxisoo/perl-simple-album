@@ -25,3 +25,18 @@ show_errors: 1
 # DO NOT EVER USE THIS FEATURE IN PRODUCTION
 # OR TINY KITTENS SHALL DIE WITH LOTS OF SUFFERING
 auto_reload: 1
+
+plack_middlewares:
+    -
+        - Debug
+        - panels
+        -
+            - Parameters
+            - Response
+            - Environment
+            - Session
+            - Timer
+            - Dancer::Version
+            - Dancer::Settings
+            - Dancer::Logger
+            - Memory
