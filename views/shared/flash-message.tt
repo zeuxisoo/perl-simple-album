@@ -1,0 +1,13 @@
+<% IF flash.error %>
+	<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Warning!</strong> <% flash.error %>
+	</div>
+<% END %>
+
+<% IF flash.success %>
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Warning!</strong> <% flash.success %>
+	</div>
+<% END %>
