@@ -1,0 +1,39 @@
+<% INCLUDE "shared/flash-message.tt" %>
+<fieldset>
+	<legend>Register</legend>
+	<div class="row">
+		<div class="span3 offset3">
+			<form action="<% request.uri_base %>/register" method="post" class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="password">Username</label>
+					<div class="controls">
+						<input type="text" id="username" name="username" placeholder="username">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="password">Email</label>
+					<div class="controls">
+						<input type="text" id="email" name="email" placeholder="Email">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="password">Password</label>
+					<div class="controls">
+						<input type="password" id="password" name="password" placeholder="Password">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="password">Confirm Password</label>
+					<div class="controls">
+						<input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn">Sign up</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</fieldset>
