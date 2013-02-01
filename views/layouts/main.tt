@@ -23,18 +23,29 @@
 				</button>
 				<a class="brand" href="<% request.uri_base %>">Simple Album</a>
 				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<li class="active">
-							<a href="<% request.uri_base %>">Browse</a>
-						</li>
-						<li class="">
-							<a href="<% request.uri_base %>/register">Register</a>
-						</li>
-					</ul>
+					<% IF !session.client_auth %>
+						<ul class="nav">
+							<li class="active">
+								<a href="<% request.uri_base %>">Browse</a>
+							</li>
+							<li class="">
+								<a href="<% request.uri_base %>/register">Register</a>
+							</li>
+						</ul>
+					<% else %>
+						<ul class="nav">
+							<li class="active">
+								<a href="<% request.uri_base %>/home">Album</a>
+							</li>
+							<li class="">
+								<a href="<% request.uri_base %>/home/list">List</a>
+							</li>
+						</ul>
+					<% END %>
 
-					<form class="navbar-form pull-right">
-						<input class="span2" type="text" placeholder="email">
-						<input class="span2" type="password" placeholder="password">
+					<form action="<% request.uri_base %>/login" method="post" class="navbar-form pull-right">
+						<input class="span2" type="text" name="email" placeholder="email">
+						<input class="span2" type="password" name="password" placeholder="password">
 						<button type="submit" class="btn">Sign in</button>
 					</form>
 				</div>

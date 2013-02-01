@@ -27,6 +27,8 @@ engines:
         end_tag:   '%>'
 
 #
+auth_key: "--Your_Encrytion_Key_Here--"
+
 session: "YAML"
 
 plugins:

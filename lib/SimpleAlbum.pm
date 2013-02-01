@@ -9,11 +9,71 @@ use Data::Dumper;
 use Digest::SHA 'sha256_hex';
 
 use SimpleAlbum::Validator;
+use SimpleAlbum::Common;
 
 our $VERSION = '0.1';
 
+before sub {
+	return if request->path ~~ [ "/", "/register", "/login" ];
+
+	my $logged_in = SimpleAlbum::Common::logged_in();
+
+	if ($logged_in->{status} eq "error") {
+		flash $logged_in->{status}, $logged_in->{message};
+
+		return redirect(uri_for('/'));
+	}
+};
+
 get '/' => sub {
     template 'index';
+};
+
+get '/home' => sub {
+	template 'home';
+};
+
+post '/login' => sub {
+	my $email    = param('email');
+	my $password = param('password');
+
+	my $status      = "error";
+	my $message     = "";
+	my $default_url = "/";
+
+	my $params    = params;
+	my $validator = SimpleAlbum::Validator->new($params);
+
+	$validator->add('email',    "Please enter email")->rule('required')
+			  ->add('password', "Please enter password")->rule('required')
+			  ->add('email',    "Please enter email not username")->rule('valid_email');
+
+	if ($validator->invalid) {
+		$message = $validator->first_error();
+	}else{
+		my $user = schema->resultset('User')->search({
+			email => $email
+		})->first();
+
+		if (!defined($user)) {
+			$message = "Can not found the user";
+		}elsif ($user->password ne sha256_hex($password)) {
+			$message = "Password incorrect";
+		}else{
+			session client_auth => {
+				user_id  => $user->id,
+				auth_key => sha256_hex(join(".", $user->id, $user->password, config->{'auth_key'}))
+			};
+
+			$status      = "success";
+			$message     = "Welcome back, ".$user->username."!";
+			$default_url = "/home";
+		}
+	}
+
+	flash $status => $message;
+
+	redirect(uri_for($default_url));
 };
 
 get '/register' => sub {
