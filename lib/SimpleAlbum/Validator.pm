@@ -58,8 +58,6 @@ sub invalid {
 		my $method = $rule_data->{rule}{'name'};
 		my $match  = $self->$method( ($field_value, $rule_data->{rule}{'args'}) );
 
-		debug Dumper $method, $match;
-
 		if ($match eq "" || $match != 1) {
 			push $self->{errors}, $rule_data->{fail_message};
 		}
@@ -94,8 +92,6 @@ sub match_field {
 
 sub valid_email {
 	my($self, $value) = @_;
-
-	debug Dumper "---", Email::Valid->address($value), "---";
 
 	return $self->required($value) && defined(Email::Valid->address($value));
 }
