@@ -5,9 +5,10 @@ use Dancer::Plugin::FlashMessage;
 use Dancer::Plugin::DBIC;
 use Dancer::Plugin::EscapeHTML;
 
-use Text::Trim;
-use Email::Valid;
+use Data::Dumper;
 use Digest::SHA 'sha256_hex';
+
+use SimpleAlbum::Validator;
 
 our $VERSION = '0.1';
 
@@ -28,18 +29,18 @@ post '/register' => sub {
 	my $status  = "error";
 	my $message = "";
 
-	if (length(trim($username)) == 0) {
-		$message = "Please enter username";
-	}elsif (length(trim($email)) == 0) {
-		$message = "Please enter email";
-	}elsif (length(trim($password)) == 0) {
-		$message = "Please enter password";
-	}elsif ($password ne $confirm_password) {
-		$message = "Password not match to confirm password";
-	}elsif (not Email::Valid->address($email)) {
-		$message = "Invalid email address";
-	}elsif (length($password) < 8) {
-		$message = "Please must more than 8 char";
+	my $params    = params;
+	my $validator = SimpleAlbum::Validator->new($params);
+
+	$validator->add('username', 'Please enter username')->rule('required')
+			  ->add('email',    'Please enter email')->rule('required')
+			  ->add('password', 'Please enter password')->rule('required')
+			  ->add('password', 'Password not match to confirm password')->rule('match_field', 'confirm_password')
+			  ->add('email',    'Invalid email address')->rule('valid_email')
+			  ->add('password', 'Password must more than 8 char')->rule('min_length', 8);
+
+	if ($validator->invalid()) {
+		$message = $validator->first_error();
 	}else{
 		my $already_exists = schema->resultset('User')->search([
 			{ username => $username},
