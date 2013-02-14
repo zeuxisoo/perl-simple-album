@@ -38,7 +38,7 @@
 								<a href="<% request.uri_base %>/home">Album</a>
 							</li>
 							<li class="">
-								<a href="<% request.uri_base %>/home/list">List</a>
+								<a href="<% request.uri_base %>/home/upload">Upload</a>
 							</li>
 						</ul>
 					<% END %>
