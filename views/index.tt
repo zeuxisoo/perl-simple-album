@@ -1,1 +1,41 @@
 <% INCLUDE "shared/flash-message.tt" %>
+
+<h3>Recent uploads</h3>
+<div class="row-fluid">
+	<% SET i = 0 %>
+	<% FOREACH item = recent_images %>
+		<% SET i = i + 1 %>
+		<% SET a = i % 6 %>
+		<% IF a == 1 %>
+			<ul class="thumbnails">
+		<% END %>
+			<li class="span2">
+				<a href="#" class="thumbnail">
+					<img src="<% request.uri_base %>/attachments/<% item.user_id %>/<% item.filename %>">
+				</a>
+			</li>
+		<% IF a == 0 %>
+			</ul>
+		<% END %>
+	<% END %>
+</div>
+
+<h3>Random images</h3>
+<div class="row-fluid">
+	<% SET i = 0 %>
+	<% FOREACH item = random_images %>
+		<% SET i = i + 1 %>
+		<% SET a = i % 6 %>
+		<% IF a == 1 %>
+			<ul class="thumbnails">
+		<% END %>
+			<li class="span2">
+				<a href="#" class="thumbnail">
+					<img src="<% request.uri_base %>/attachments/<% item.user_id %>/<% item.filename %>">
+				</a>
+			</li>
+		<% IF a == 0 %>
+			</ul>
+		<% END %>
+	<% END %>
+</div>

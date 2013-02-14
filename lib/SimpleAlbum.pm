@@ -11,6 +11,7 @@ use Digest::SHA 'sha256_hex';
 use SimpleAlbum::Validator;
 use SimpleAlbum::Common;
 use SimpleAlbum::DataURI;
+use SimpleAlbum::DB::Image;
 
 our $VERSION = '0.1';
 
@@ -27,7 +28,30 @@ hook 'before' => sub {
 };
 
 get '/' => sub {
-    template 'index';
+	my @recent_images = schema->resultset('Image')->search({}, {
+		rows => 6,
+		order_by => {
+			-desc => 'create_at'
+		}
+	})->all();
+
+	my @random_images;
+	my $random_image_sth = SimpleAlbum::DB::Image->get_random_images();
+
+	$random_image_sth->execute(6);
+	while(my $row = $random_image_sth->fetchrow_hashref()) {
+		push @random_images, {
+			user_id => $row->{user_id},
+			filename => $row->{filename},
+		}
+	}
+
+	print Dumper @random_images;
+
+    template 'index', {
+    	recent_images => \@recent_images,
+    	random_images => \@random_images
+    };
 };
 
 get '/logout' => sub {
