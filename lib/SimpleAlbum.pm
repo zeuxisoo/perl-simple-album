@@ -1,8 +1,5 @@
 package SimpleAlbum;
 
-use Cwd            qw/abs_path/;
-use File::Basename qw/dirname/;
-
 use Dancer ':syntax';
 use Dancer::Plugin::FlashMessage;
 use Dancer::Plugin::DBIC;
