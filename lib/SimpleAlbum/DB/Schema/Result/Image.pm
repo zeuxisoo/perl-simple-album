@@ -1,12 +1,12 @@
 use utf8;
-package SimpleAlbum::DB::Schema::Result::User;
+package SimpleAlbum::DB::Schema::Result::Image;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-SimpleAlbum::DB::Schema::Result::User
+SimpleAlbum::DB::Schema::Result::Image
 
 =cut
 
@@ -15,11 +15,11 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
-=head1 TABLE: C<users>
+=head1 TABLE: C<images>
 
 =cut
 
-__PACKAGE__->table("users");
+__PACKAGE__->table("images");
 
 =head1 ACCESSORS
 
@@ -29,23 +29,17 @@ __PACKAGE__->table("users");
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 username
+=head2 user_id
+
+  data_type: 'integer'
+  is_foreign_key: 1
+  is_nullable: 0
+
+=head2 filename
 
   data_type: 'text'
   is_nullable: 0
-  size: [30,0]
-
-=head2 password
-
-  data_type: 'text'
-  is_nullable: 0
-  size: [64,0]
-
-=head2 email
-
-  data_type: 'text'
-  is_nullable: 0
-  size: [80,0]
+  size: [40,0]
 
 =head2 create_at
 
@@ -58,12 +52,10 @@ __PACKAGE__->table("users");
 __PACKAGE__->add_columns(
   "id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "username",
-  { data_type => "text", is_nullable => 0, size => [30, 0] },
-  "password",
-  { data_type => "text", is_nullable => 0, size => [64, 0] },
-  "email",
-  { data_type => "text", is_nullable => 0, size => [80, 0] },
+  "user_id",
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
+  "filename",
+  { data_type => "text", is_nullable => 0, size => [40, 0] },
   "create_at",
   { data_type => "integer", is_nullable => 0, size => [10, 0] },
 );
@@ -82,24 +74,24 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
-=head2 images
+=head2 user
 
-Type: has_many
+Type: belongs_to
 
-Related object: L<SimpleAlbum::DB::Schema::Result::Image>
+Related object: L<SimpleAlbum::DB::Schema::Result::User>
 
 =cut
 
-__PACKAGE__->has_many(
-  "images",
-  "SimpleAlbum::DB::Schema::Result::Image",
-  { "foreign.user_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
+__PACKAGE__->belongs_to(
+  "user",
+  "SimpleAlbum::DB::Schema::Result::User",
+  { id => "user_id" },
+  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
 # Created by DBIx::Class::Schema::Loader v0.07033 @ 2013-02-14 19:32:21
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jH2Fw2+O6poCrwqR6yzjGg
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lqS0d9dydWuM/RsGvrh6MQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

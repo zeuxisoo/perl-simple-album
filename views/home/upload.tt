@@ -1,0 +1,63 @@
+<% INCLUDE "shared/flash-message.tt" %>
+
+<form action="<% request.uri_base %>/home/upload" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="image_data_uri" value="" />
+	<div class="row-fluid">
+		<div class="span5">
+			<div class="fileupload fileupload-new" data-provides="fileupload">
+				<div class="fileupload-new thumbnail" style="width: 400px; height: 350px;">
+					<img src="http://www.placehold.it/400x350/EFEFEF/AAAAAA&text=no+image" />
+				</div>
+				<div class="fileupload-preview fileupload-exists thumbnail" style="width: 400px; height: 350px; line-height: 20px;"></div>
+				<div>
+					<span class="btn btn-file">
+						<span class="fileupload-new">Select image</span>
+						<span class="fileupload-exists">Change</span>
+						<input type="file" />
+					</span>
+					<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+				</div>
+			</div>
+		</div>
+		<div class="span7">
+			<div id="filters">
+				<h4>Filters</h4>
+				<hr />
+				<div class="row-fluid">
+					<div class="btn btn-info span3" data-preset="vintage">Vintage</div>
+					<div class="btn btn-info span3" data-preset="lomo">Lomo</div>
+					<div class="btn btn-info span3" data-preset="clarity">Clarity</div>
+					<div class="btn btn-info span3" data-preset="sinCity">Sin City</div>
+				</div>
+				<br />
+				<div class="row-fluid">
+					<div class="btn btn-info span3" data-preset="sunrise">Sunrise</div>
+					<div class="btn btn-info span3" data-preset="crossProcess">Cross Process</div>
+					<div class="btn btn-info span3" data-preset="orangePeel">Orange Peel</div>
+					<div class="btn btn-info span3" data-preset="love">Love</div>
+				</div>
+				<br />
+				<div class="row-fluid">
+					<div class="btn btn-info span3" data-preset="grungy">Grungy</div>
+					<div class="btn btn-info span3" data-preset="jarques">Jarques</div>
+					<div class="btn btn-info span3" data-preset="pinhole">Pinhole</div>
+					<div class="btn btn-info span3" data-preset="oldBoot">Old Boot</div>
+				</div>
+				<br />
+				<div class="row-fluid">
+					<div class="btn btn-info span3" data-preset="glowingSun">Glowing Sun</div>
+					<div class="btn btn-info span3" data-preset="hazyDays">Hazy Days</div>
+					<div class="btn btn-info span3" data-preset="herMajesty">Her Majesty</div>
+					<div class="btn btn-info span3" data-preset="nostalgia">Nostalgia</div>
+				</div>
+				<br />
+				<div class="row-fluid">
+					<div class="btn btn-info span3" data-preset="hemingway">Hemingway</div>
+					<div class="btn btn-info span3" data-preset="concentrate">Concentrate</div>
+				</div>
+			</div>
+			<br />
+			<button type="submit" class="btn btn-primary">Upload</button>
+		</div>
+	</div>
+</form>

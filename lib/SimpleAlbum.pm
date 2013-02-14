@@ -1,5 +1,8 @@
 package SimpleAlbum;
 
+use Cwd            qw/abs_path/;
+use File::Basename qw/dirname/;
+
 use Dancer ':syntax';
 use Dancer::Plugin::FlashMessage;
 use Dancer::Plugin::DBIC;
@@ -10,6 +13,7 @@ use Digest::SHA 'sha256_hex';
 
 use SimpleAlbum::Validator;
 use SimpleAlbum::Common;
+use SimpleAlbum::DataURI;
 
 our $VERSION = '0.1';
 
@@ -29,8 +33,69 @@ get '/' => sub {
     template 'index';
 };
 
+get '/logout' => sub {
+	session->destroy;
+	redirect(uri_for('/'));
+};
+
 get '/home' => sub {
-	template 'home';
+	my @images = schema->resultset('Image')->search({
+		user_id => session('client_auth')->{user_id},
+	},{
+		order_by => {
+			-desc => 'create_at'
+		}
+	})->all();
+
+	template 'home', {
+		images => \@images
+	};
+};
+
+get '/home/upload' => sub {
+	template 'home/upload';
+};
+
+post '/home/upload' => sub {
+	# my $image = request->uploads->{'image'};
+	my $image_data_uri = param('image_data_uri');
+
+	my $status      = "error";
+	my $message     = '';
+
+	my $params    = params;
+	my $validator = SimpleAlbum::Validator->new($params);
+
+	$validator->add('image_data_uri', "Please upload image first")->rule('required');
+
+	if ($validator->invalid) {
+		$message = $validator->first_error();
+	}else{
+		my $decode_image         = SimpleAlbum::DataURI::decode($image_data_uri);
+		my $user_attachment_root = sprintf("%s/attachments/%s", Dancer::App->current->setting('public'), session('client_auth')->{user_id});
+		my $user_attachment_name = $user_attachment_root.'/'.$decode_image->{filename};
+
+		if (!-d $user_attachment_root) {
+			mkdir($user_attachment_root, 0777);
+		}
+
+		open(FILE, ">$user_attachment_name");
+		print FILE $decode_image->{content};
+		close(FILE);
+
+		schema->resultset('Image')->new({
+			user_id => session('client_auth')->{user_id},
+			filename => $decode_image->{filename},
+			create_at => time
+		})->insert();
+
+		$status  = 'success';
+		$message = 'upload image completed';
+	}
+
+	flash $status => $message;
+
+	redirect(uri_for('/home/upload'));
 };
 
 post '/login' => sub {
@@ -62,6 +127,7 @@ post '/login' => sub {
 		}else{
 			session client_auth => {
 				user_id  => $user->id,
+				username => $user->username,
 				auth_key => sha256_hex(join(".", $user->id, $user->password, config->{'auth_key'}))
 			};
 

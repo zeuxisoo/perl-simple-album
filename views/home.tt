@@ -1,1 +1,20 @@
 <% INCLUDE "shared/flash-message.tt" %>
+
+<div class="row-fluid">
+	<% SET i = 0 %>
+	<% FOREACH item = images %>
+		<% SET i = i + 1 %>
+		<% SET a = i % 4 %>
+		<% IF a == 1 %>
+			<ul class="thumbnails">
+		<% END %>
+			<li class="span3">
+				<a href="#" class="thumbnail">
+					<img src="<% request.uri_base %>/attachments/<% session.client_auth.user_id %>/<% item.filename %>">
+				</a>
+			</li>
+		<% IF a == 0 %>
+			</ul>
+		<% END %>
+	<% END %>
+</div>
