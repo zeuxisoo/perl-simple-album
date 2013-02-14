@@ -46,8 +46,6 @@ get '/' => sub {
 		}
 	}
 
-	print Dumper @random_images;
-
     template 'index', {
     	recent_images => \@recent_images,
     	random_images => \@random_images
