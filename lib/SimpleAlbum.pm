@@ -13,7 +13,7 @@ use SimpleAlbum::Common;
 
 our $VERSION = '0.1';
 
-before sub {
+hook 'before' => sub {
 	return if request->path ~~ [ "/", "/register", "/login" ];
 
 	my $logged_in = SimpleAlbum::Common::logged_in();
