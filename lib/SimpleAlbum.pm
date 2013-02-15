@@ -1,5 +1,7 @@
 package SimpleAlbum;
 
+use File::Basename;
+
 use Dancer ':syntax';
 use Dancer::Plugin::FlashMessage;
 use Dancer::Plugin::DBIC;
@@ -14,6 +16,17 @@ use SimpleAlbum::DataURI;
 use SimpleAlbum::DB::Image;
 
 our $VERSION = '0.1';
+
+hook 'before_template_render' => sub {
+	my $tokens = shift;
+	my $asset_root = config->{public}.'/assets';
+
+	my @assets = glob("$asset_root/*.js $asset_root/*.css");
+
+	$tokens->{js_asset} = basename($assets[0]);
+	$tokens->{css_asset} = basename($assets[1]);
+	$tokens->{environment} = config->{environment};
+};
 
 hook 'before' => sub {
 	return if request->path ~~ [ "/", "/register", "/login" ];

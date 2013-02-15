@@ -4,6 +4,10 @@
 <meta charset="<% settings.charset %>">
 <meta name="viewport" content="width=device-width" />
 <title>Simple Album</title>
+<% IF environment == "production" %>
+<link rel="stylesheet" href="<% request.uri_base %>/assets/<% css_asset %>">
+<script type="text/javascript" src="<% request.uri_base %>/assets/<% js_asset %>"></script>
+<% ELSE %>
 <link rel="stylesheet" href="<% request.uri_base %>/css/bootstrap.min.css">
 <link rel="stylesheet" href="<% request.uri_base %>/css/bootstrap-fileupload.min.css">
 <link rel="stylesheet" href="<% request.uri_base %>/css/bootstrap-responsive.min.css">
@@ -13,6 +17,7 @@
 <script type="text/javascript" src="<% request.uri_base %>/javascripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="<% request.uri_base %>/javascripts/bootstrap-fileupload.min.js"></script>
 <script type="text/javascript" src="<% request.uri_base %>/javascripts/default.js"></script>
+<% END %>
 </head>
 <body>
 <div id="wrapper">
