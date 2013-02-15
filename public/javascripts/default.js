@@ -15,13 +15,31 @@
 		$("#filters div[data-preset]").click(function() {
 			var id = "preset-image";
 
-			// Make id
+			// Find image block
 			var image  = $(".fileupload-exists > img");
+
+			// Check is or not exists image
+			if (image.length <= 0) {
+				$.when(
+					$("<span class='pull-right label label-warning'>Please select image first</span>")
+						.css('opacity', 0.5)
+						.insertAfter("#filters > h4")
+						.hide()
+						.slideDown()
+				).done(function(target) {
+					setTimeout(function() {
+						target.slideUp();
+					}, 2000);
+				});
+				return;
+			}
+
+			// Make id
 			if (typeof image.attr("id") == "undefined") {
 				image.attr("id", id);
 			}
 
-			//
+			// Make filter
 			var filter_block = $(this);
 			var filter_name  = filter_block.data("preset");
 			var filter_html  = filter_block.html();
