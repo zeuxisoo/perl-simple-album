@@ -3,4 +3,6 @@
 sessions/*
 database/*
 public/attachments/*
+public/assets/*
+logs/*
 access.log
