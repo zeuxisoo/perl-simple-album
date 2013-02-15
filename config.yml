@@ -48,7 +48,3 @@ plack_middlewares:
         - Session
     -
         - CSRFBlock
-
-
-
-
