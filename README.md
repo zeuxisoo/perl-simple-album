@@ -1,6 +1,16 @@
-### Start the application (Dev Mode)
+### Build the assets
 
-	plackup -R lib --access-log access.log bin/app.pl
+	perl ./bin/build_asset.pl
+
+### Start the application
+
+	- Dev Mode
+
+		plackup -R lib --access-log access.log bin/app.pl
+
+	- Production Mode
+
+		plackup -R lib -E production --access-log access.log bin/app.pl
 
 ### Update the database schema
 
