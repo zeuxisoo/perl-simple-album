@@ -1,0 +1,60 @@
+{
+   "abstract" : "YOUR APPLICATION ABSTRACT",
+   "author" : [
+      "Zeuxis.Lo <seekstudio@gmail.com>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "ExtUtils::MakeMaker version 6.64, CPAN::Meta::Converter version 2.120921",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "SimpleAlbum",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "inc"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "CSS::Minifier::XS" : "0",
+            "DBIx::Class::Schema::Loader" : "0",
+            "Dancer" : "1.311",
+            "Dancer::Plugin::DBIC" : "0",
+            "Dancer::Plugin::EscapeHTML" : "0",
+            "Dancer::Plugin::FlashMessage" : "0",
+            "Email::Valid" : "0",
+            "Image::Resize" : "0",
+            "Image::Size" : "0",
+            "JavaScript::Minifier::XS" : "0",
+            "Plack::Handler::Starman" : "0",
+            "Plack::Middleware::CSRFBlock" : "0",
+            "Plack::Middleware::Debug" : "0",
+            "Plack::Middleware::ReverseProxy" : "0",
+            "Plack::Middleware::Session" : "0",
+            "Plack::Runner" : "0",
+            "Template::Toolkit" : "0",
+            "Test::More" : "0",
+            "Text::Trim" : "0",
+            "YAML" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "version" : "0.1"
+}
