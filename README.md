@@ -1,21 +1,11 @@
-### Build the assets
+#### Install the application
 
-	perl ./bin/build_asset.pl
+	Please checkoutout the INSTALL.md
 
-### Start the application
+#### Others
 
-	- Dev Mode
+	Please checkout the make command
 
-		plackup -R lib --access-log access.log bin/app.pl
-
-	- Production Mode
-
-		plackup -R lib -E production --access-log access.log bin/app.pl
-
-### Update the database schema
-
-	./bin/build_db.pl
-
-### License
+#### License
 
 	The BSD 2-Clause License
