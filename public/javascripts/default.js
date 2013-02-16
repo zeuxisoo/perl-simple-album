@@ -11,6 +11,11 @@
 			name: "image"
 		});
 
+		// Lazy load image
+		$("img.lazy").lazyload({
+			effect : "fadeIn"
+		});
+
 		//
 		var is_busy = false;
 		$("#filters div[data-preset]").click(function() {

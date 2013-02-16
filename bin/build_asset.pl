@@ -13,7 +13,7 @@ my $js_root      = $current_root."/public/javascripts";
 my $css_root     = $current_root."/public/css";
 my $js_min_files = ["default.js"];
 my $css_min_files= ["default.css"];
-my $js_file_sort = ["caman.full.min.js", "jquery.min.js", "bootstrap.min.js", "bootstrap-fileupload.min.js", "default.js"];
+my $js_file_sort = ["caman.full.min.js", "jquery.min.js", "jquery.lazyload.min.js", "bootstrap.min.js", "bootstrap-fileupload.min.js", "default.js"];
 my $css_file_sort= ["bootstrap.min.css", "bootstrap-fileupload.min.css", "bootstrap-responsive.min.css", "default.css"];
 
 if (!-d $assets_root) {

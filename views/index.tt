@@ -11,7 +11,7 @@
 		<% END %>
 			<li class="span2">
 				<a href="#" class="thumbnail">
-					<img src="<% request.uri_base %>/attachments/<% item.user_id %>/thumb/160x160/<% item.filename %>">
+					<img class="lazy" src="<% request.uri_base %>/attachments/<% item.user_id %>/thumb/160x160/<% item.filename %>">
 				</a>
 			</li>
 		<% IF a == 0 %>
@@ -31,7 +31,7 @@
 		<% END %>
 			<li class="span2">
 				<a href="#" class="thumbnail">
-					<img src="<% request.uri_base %>/attachments/<% item.user_id %>/thumb/160x160/<% item.filename %>">
+					<img class="lazy" src="<% request.uri_base %>/attachments/<% item.user_id %>/thumb/160x160/<% item.filename %>">
 				</a>
 			</li>
 		<% IF a == 0 %>
