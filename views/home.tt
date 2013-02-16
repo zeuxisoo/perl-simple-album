@@ -10,7 +10,7 @@
 		<% END %>
 			<li class="span3">
 				<a href="#" class="thumbnail">
-					<img src="<% request.uri_base %>/attachments/<% session.client_auth.user_id %>/<% item.filename %>">
+					<img src="<% request.uri_base %>/attachments/<% session.client_auth.user_id %>/thumb/260x260/<% item.filename %>">
 				</a>
 			</li>
 		<% IF a == 0 %>

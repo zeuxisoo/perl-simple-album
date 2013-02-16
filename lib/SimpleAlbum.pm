@@ -13,6 +13,7 @@ use Digest::SHA 'sha256_hex';
 use SimpleAlbum::Validator;
 use SimpleAlbum::Common;
 use SimpleAlbum::DataURI;
+use SimpleAlbum::Image;
 use SimpleAlbum::DB::Image;
 
 our $VERSION = '0.1';
@@ -114,6 +115,9 @@ post '/home/upload' => sub {
 		open(FILE, ">$user_attachment_name");
 		print FILE $decode_image->{content};
 		close(FILE);
+
+		SimpleAlbum::Image::create_thumb_file($user_attachment_name, 260, 260);
+		SimpleAlbum::Image::create_thumb_file($user_attachment_name, 160, 160);
 
 		schema->resultset('Image')->new({
 			user_id => session('client_auth')->{user_id},
