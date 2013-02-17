@@ -1,4 +1,6 @@
-all:
+.PHONY: help dependents initial database db-schema asset thumb dev-server update
+
+help:
 	@echo "Usages:"
 	@echo "- make dependents"
 	@echo "- make initial"
