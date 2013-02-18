@@ -2,15 +2,7 @@ use strict;
 use warnings;
 use v5.10;
 
-say "Please use make command";
-say "- make dependents";
-say "- make initial";
-say "- make database";
-say "- make db-schema";
-say "- make asset";
-say "- make thumb";
-say "- make dev-server";
-say "- make update";
+print `make`;
 
 # use ExtUtils::MakeMaker;
 
